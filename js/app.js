@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var params = (document.location.search || "").parseQueries({ size: 7 });
 
     if (window.innerWidth < 600) {
-        params.size = 6;
+        params.size = params.size || 6;
         params.combo = params.combo || 3;
         params.count = params.count || 2;
     }

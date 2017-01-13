@@ -14,7 +14,7 @@
 
 var Gear = function (params) {
     this.config = {
-        size     : params.size && [6, 7, 8, 9, 10].indexOf(params.size) > -1 ? params.size : 7,
+        size     : params.size && [5, 6, 7, 8, 9, 10].indexOf(params.size) > -1 ? params.size : 7,
         count    : params.count && [2, 3, 4].indexOf(params.count) > -1 ? params.count : 2,
         maxCombo : params.combo && [2, 3, 4, 5].indexOf(params.combo) > -1 ? params.combo : 4,
         mode     : params.mode && ['easy', 'hard'].indexOf(params.mode) > -1 ? params.mode : 'easy',

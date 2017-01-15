@@ -27,6 +27,12 @@ var Gear = function (params) {
     this.gain = {};
     this.over = false;
 
+    this.circle = 4;
+    this.user = {
+        steps   : [],
+        penalty : 0
+    };
+
     this.colour = new Colour();
     this.shelter = new Shelter();
     this.render = new Render(this.config);
@@ -54,6 +60,12 @@ Gear.prototype.api = {
                 route.col = key > 0 ? 1 : -1; // up, down
             } else {
                 route.row = key > 2 ? -1 : 1; // left, right
+            }
+
+            this.user.steps.push(key);
+            if (this.user.steps.length > this.circle) {
+                this.user.steps.shift();
+                this.api.game.penalty.call(this);
             }
 
             if (!this.grid.cellsAvailable()) {
@@ -84,10 +96,35 @@ Gear.prototype.api = {
 
             this.gain = {};
         },
+        penalty: function() {
+            var self = this;
+
+            // number of unique steps in the last four
+            var unique = this.user.steps.filter(function(val, i, arr) { 
+                return arr.indexOf(val) === i;
+            }).length;
+
+            if (unique === this.circle) {
+                var count = 0;
+                this.user.steps.reduce(function (prev, next, i) {
+                    if (prev > -1) {
+                        count += ( next === 0 && prev === self.circle - 1 ) || ( prev === 0 && next === self.circle - 1 ) ? 1 : Math.abs(next - prev);
+                    }
+                    return next;
+                }, -1);
+
+                // add penalty point for a pattern of actions
+                if (count === this.circle - 1) {
+                    this.user.penalty += 1;
+
+                    this.user.steps = [];
+                }
+            }
+        },
         step: function() {
             var cell, colour;
 
-            for (var i = 0; i < this.config.count; i++) {
+            for (var i = 0; i < ( this.config.count + Math.floor(this.user.penalty/10) ); i++) {
                 cell = this.grid.randomAvailableCell();
                 colour = this.colour.randomByWeight();
                 this.grid.cells[cell.row][cell.col] = new Tile(colour);

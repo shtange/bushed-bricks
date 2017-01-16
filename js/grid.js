@@ -68,18 +68,18 @@ Grid.prototype.arrange = function (key, route, transpose) {
 
         if (row.length === 0) return this.emptyCells(this.config.size);
 
+        // Merge tiles
+        row = [].reduce.call(row, function (tiles, next) {
+            next.merged = false;
+            return tiles.length > 0 ? self.mergeTiles(tiles, next) : [next];
+        }, []);
+
         // Move to shelter
         var num = route > 0 ? row.length - 1 : 0;
         if ((row[num]).colour === this.shelters[key] && (row[num]).combo >= this.config.maxCombo) {
             data.combo += (row[num]).combo;
             row.splice(num, 1);
         }
-
-        // Merge tiles
-        row = [].reduce.call(row, function (tiles, next) {
-            next.meged = false;
-            return tiles.length > 0 ? self.mergeTiles(tiles, next) : [next];
-        }, []);
 
         // Add empty cells
         empty = this.emptyCells(this.config.size - row.length);
@@ -105,7 +105,6 @@ Grid.prototype.mergeTiles = function (tiles, next) {
         next.merged = true;
         tiles.push(next);
     } else {
-        next.merged = false;
         tiles.push(last, next);
     }
 

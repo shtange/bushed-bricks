@@ -19,7 +19,7 @@ String.prototype.parseQueries = function (params) {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-    var params = (document.location.search || "").parseQueries({ size: 7 });
+    var params = (document.location.search || "").parseQueries();
 
     if (window.innerWidth < 400) {
         params.size = params.size || 6;

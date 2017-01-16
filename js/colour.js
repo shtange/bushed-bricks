@@ -14,7 +14,7 @@
 
 var Colour = function () {
     this.list = ["#FFE082", "#FF8A65", "#AED581", "#81D4FA", "#A1887F"]; // yellow, red, green, blue, brown
-    this.weight = [0.24, 0.24, 0.24, 0.24, 0.04];
+    this.weight = [0.23, 0.23, 0.23, 0.23, 0.08];
 }
 
 Colour.prototype.random = function () {

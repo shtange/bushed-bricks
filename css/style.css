@@ -286,14 +286,71 @@ div[class*="wrap-"] {
     border-radius: 0;
   }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 800px) {
   h1 {
-    margin: -10px 0 10px;
+    margin: 0;
     font-size: 2.6em;
   }
-
+  .wraps {
+    max-width: 520px;
+    margin: 0 auto;
+  }
   div[class*="wrap-"] {
+    padding: 6px 12px;
     font-size: 2em;
+  }
+  div.wrap-navs {
+    margin-bottom: 0;
+  }
+  div.wrap-game {
+    padding: 0 8px;
+  }
+  div.wrap-score {
+    margin-bottom: -44px;
+  }
+  div.wrap-step {
+    margin-top: -44px;
+  }
+  #game {
+    padding: 8px 0;
+  }
+  .wrap-game:before,
+  .wrap-game:after {
+    width: 6px;
+  }
+  #game:before, #game:after {
+    height: 6px;
+  }
+  #page,
+  #page[data-size] {
+    width: 100%;
+  }
+  #game table {
+    width: 100%;
+    background-image: none;
+    border-spacing: 4px !important;
+  }
+    #game table td {
+      width: 10%;
+      height: auto;
+      border: 1px solid #d9d7ca;
+      position: relative;
+    }
+      #game table td > div {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+      }
+      #game table td:before {
+        content: "";
+        display: block;
+        padding-top: 100%;
+      }
+  .wrap-score #score,
+  .wrap-step #step {
+    font-weight: bold;
   }
 }
 

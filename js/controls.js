@@ -71,5 +71,6 @@ ControlsManager.prototype.listen = function () {
     document.querySelector('#restart').addEventListener('click', function(event) {
         event.preventDefault();
         self.API("game", "reload");
+        event.stopPropagation();
     }, false);
 }

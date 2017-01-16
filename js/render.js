@@ -40,7 +40,7 @@ Render.prototype.redraw = function (grid, score, gain, step) {
 
     this.DOM.table.innerHTML = [].reduce.call(grid, function (tr, row) {
         return [].reduce.call(row, function (td, cell) {
-            if (!cell) return td + '<td></td>';
+            if (!cell) return td + '<td><div></div></td>';
             cell.attr = [
                 { tag: "bgcolor",     value: cell.colour },
                 { tag: "data-combo",  value: cell.combo },

@@ -76,7 +76,7 @@ Grid.prototype.arrange = function (key, route, transpose) {
 
         // Move to shelter
         var num = route > 0 ? row.length - 1 : 0;
-        if ((row[num]).colour === this.shelters[key] && (row[num]).combo >= this.config.maxCombo) {
+        if ((row[num]).colour === this.shelters[key] && (row[num]).combo >= this.config.maxCombo && !(row[num]).merged) {
             data.combo += (row[num]).combo;
             row.splice(num, 1);
         }

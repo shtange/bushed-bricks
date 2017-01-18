@@ -19,13 +19,7 @@ String.prototype.parseQueries = function (params) {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-    var params = (document.location.search || "").parseQueries({ size: 7 });
-
-    if (window.innerWidth < 400) {
-        params.size = 6;
-        params.combo = params.combo || 3;
-        params.count = params.count || 2;
-    }
+    var params = (document.location.search || "").parseQueries({ size: window.innerWidth < 400 ? 6 : 7 });
 
     new Gear(params);
 });

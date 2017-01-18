@@ -14,9 +14,9 @@
 
 var Gear = function (params) {
     this.config = {
-        size     : params.size && [6, 7, 8, 9, 10].indexOf(params.size) > -1 ? params.size : 7,
-        count    : params.count && [2, 3, 4].indexOf(params.count) > -1 ? params.count : 2,
-        maxCombo : params.combo && [2, 3, 4, 5].indexOf(params.combo) > -1 ? params.combo : 4,
+        size     : params.size && [5, 6, 7, 8, 9, 10].indexOf(params.size) > -1 ? params.size : 7,
+        count    : params.count && [2, 3, 4].indexOf(params.count) > -1 ? params.count : params.size - 4,
+        combo : params.combo && [2, 3, 4, 5].indexOf(params.combo) > -1 ? params.combo : params.size - 3,
         mode     : params.mode && ['easy', 'hard'].indexOf(params.mode) > -1 ? params.mode : 'easy',
         lifeTime : 4,
         points   : 10,
@@ -136,6 +136,9 @@ Gear.prototype.api = {
             this.score = 0;
             this.step = 1;
             this.over = false;
+
+            this.user.penalty = 0;
+            this.user.steps = [];
 
             this.grid.clear();
             this.render.clear();

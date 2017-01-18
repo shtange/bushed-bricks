@@ -45,11 +45,11 @@ Render.prototype.redraw = function (grid, score, gain, step) {
                 { tag: "bgcolor",     value: cell.colour },
                 { tag: "data-combo",  value: cell.combo },
                 { tag: "data-digit",  value: (''+cell.combo).length + '' + Math.floor(cell.combo/10) },
-                { tag: "data-status", value: cell.combo >= self.config.maxCombo ? 1 : 0 },
+                { tag: "data-status", value: cell.combo >= self.config.combo ? 1 : 0 },
             ].map(function(attr){
                 return '' + attr.tag + '="' + attr.value + '"';
             }).join(' ');
-            return td + '<td ' + cell.attr + '><div>' + ( cell.combo >= self.config.maxCombo ? cell.combo : '' ) + '</div></td>';
+            return td + '<td ' + cell.attr + '><div>' + ( cell.combo >= self.config.combo ? cell.combo : '' ) + '</div></td>';
         }, tr + '<tr>') + '</tr>';
     }, '');
 

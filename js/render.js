@@ -20,6 +20,7 @@ var Render = function (config) {
         game: document.querySelector('#game'),
         score: document.querySelector('#score'),
         step: document.querySelector('#step'),
+        message: document.querySelector('#message'),
     };
 
     this.init();
@@ -27,11 +28,7 @@ var Render = function (config) {
 
 Render.prototype.init = function () {
     this.DOM.page.setAttribute('data-size', this.config.size);
-
     this.DOM.table = document.createElement("table");
-    this.DOM.table.setAttribute("cellspacing", "11");
-    this.DOM.table.setAttribute("cellpadding", "0");
-
     this.DOM.game.appendChild(this.DOM.table);
 }
 
@@ -57,10 +54,54 @@ Render.prototype.redraw = function (grid, score, gain, step) {
     this.DOM.step.innerHTML = step || 1;
 }
 
-Render.prototype.gameOver = function () {
-    this.DOM.page.setAttribute('data-over', 1);
+Render.prototype.clear = function () {
+    this.DOM.message.innerHTML = "";
+    this.hideMessage();
 }
 
-Render.prototype.clear = function () {
-    this.DOM.page.setAttribute('data-over', 0);
+Render.prototype.gameOver = function() {
+    this.setMessage([
+        { tag: "h3", caption: "Game Over" }
+    ]);
+    this.showMessage();
+};
+
+Render.prototype.gameWin = function() {
+    this.setMessage([
+        { tag: "h3", caption: "You\'ve Won!" }
+    ]);
+    this.showMessage();
+};
+
+Render.prototype.gameIntro = function() {
+    this.setMessage([
+        { tag: "h4", caption: "Rules" },
+        { tag: "p",  caption: "Combined blocks" },
+        { tag: "h4", caption: "Controls" },
+        { tag: "p",  caption: "navigation keys for desktop" },
+        { tag: "p",  caption: "swipe for tablet/mobile" },
+    ]);
+    this.showMessage();
+}
+
+Render.prototype.setMessage = function(data) {
+    var message = document.createElement('div');
+
+    data.forEach(function(val, i) {
+        var elem = document.createElement(val.tag);
+        elem.innerHTML = val.caption;
+        message.appendChild(elem);
+    });
+
+    this.DOM.message.appendChild(message);
+};
+
+Render.prototype.showMessage = function() {
+    this.DOM.table.style.opacity = "0.2";
+    this.DOM.message.style.display = "block";
+}
+
+Render.prototype.hideMessage = function() {
+    this.DOM.table.style.opacity = "1";
+    this.DOM.message.style.display = "none";
 }

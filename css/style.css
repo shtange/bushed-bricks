@@ -3,6 +3,7 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
+  overflow: hidden;
   touch-action: none;
 }
 
@@ -14,28 +15,28 @@ body {
   position: relative;
 }
 
-h1, h2, h3 {
+h1, h2 {
   font-family: 'Amatica SC', cursive;
   text-align: center;
 }
 
 h1 {
-  margin: -20px 0 20px;
+  margin: 0;
   font-size: 3em;
+  line-height: 2em;
   font-weight: bold;
   position: relative;
 }
-  h1:after {
-    content: "⚒";
-    font-size: 0.5em;
-    font-weight: normal;
-    position: absolute;
-    top: 0;
-    right: auto;
-  }
 
 h3 {
-  font-size: 1.5em;
+  font-size: 2em;
+  font-weight: normal;
+}
+
+h4 {
+  font-size: 1.2em;
+  line-height: 1em;
+  text-align: left;
 }
 
 p {
@@ -48,12 +49,19 @@ a {
   text-decoration: none;
 }
 
+ul, ol {
+  margin: 0.25em 0 0.5em;
+  text-align: left;
+  list-style: none;
+  padding: 0;
+}
+
+
 #page {
+  width: 100%;
+  height: 100%;
   margin: auto;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: relative;
 }
 #page[data-size="8"] {
   width: 600px;
@@ -67,33 +75,29 @@ a {
 #page[data-size="5"] {
   width: 392px;
 }
-#page[data-over="0"] #game-over {
-  display: none;
-}
-#page[data-over="1"] #game > table {
-  opacity: 0.4;
-}
 
 div[class*="wrap-"] {
-  padding: 0 18px;
-  font-size: 2.2em;
+  padding: 6px 12px;
+  font-size: 2em;
   line-height: 1;
+  user-select: none !important;
+  -moz-user-select: none !important;
+  -khtml-user-select: none !important;
+  -webkit-user-select: none !important;
 }
-  div[class*="wrap-"]:not(.wrap-links) {
-    user-select: none !important;
-    -moz-user-select: none !important;
-    -khtml-user-select: none !important;
-    -webkit-user-select: none !important;
-  }
 
-.wrap-game {
-  /*width: 100%;*/
+.wraps {
+  margin: 0 auto;
+}
+
+div.wrap-game {
+  padding: 0 8px;
   position: relative;
 }
   .wrap-game:before,
   .wrap-game:after {
     content: " ";
-    width: 4px;
+    width: 6px;
     height: 40%;
     position: absolute;
     top: 30%;
@@ -108,7 +112,7 @@ div[class*="wrap-"] {
   }
 
 .wrap-score {
-  margin-bottom: -30px;
+  margin-bottom: -44px;
 }
   .wrap-score #score {
     position: relative;
@@ -128,9 +132,12 @@ div[class*="wrap-"] {
       border-radius: 12px 0;
       border: 2px solid #ff8a65;
     }
+  .wrap-score #score,
+  .wrap-step #step {
+    font-weight: bold;
+  }
 
 .wrap-navs {
-  margin-bottom: -15px;
   text-align: right;
 }
   .wrap-navs a#restart {
@@ -140,19 +147,19 @@ div[class*="wrap-"] {
   }
 
 .wrap-step {
-  margin-top: -33px;
   text-align: right;
 }
 
+
 #game {
   width: 100%;
-  padding: 18px 0;
+  padding: 8px 0;
 }
   #game:before,
   #game:after {
     content: " ";
     width: 40%;
-    height: 4px;
+    height: 6px;
     position: absolute;
     left: 30%;
   }
@@ -165,16 +172,23 @@ div[class*="wrap-"] {
     bottom: 0;
   }
   #game table {
+    width: 100%;
     margin: 0 auto;
-    background-image: url('../img/grid-brd.png');
+    border-spacing: 4px !important;
   }
     #game table td {
-      width: 58px;
-      height: 58px;
+      width: 10%;
+      height: auto;
       padding: 0;
+      border: 1px solid #d9d7ca;
       text-align: center;
       position: relative;
       box-sizing: border-box;
+    }
+    #game table td:before {
+      content: "";
+      display: block;
+      padding-top: 100%;
     }
       #game table td > span {
         padding: 2px;
@@ -190,168 +204,154 @@ div[class*="wrap-"] {
         width: 100%;
         height: 100%;
         overflow: hidden;
-        position: absolute;
-        bottom: 0;
-        left: 0;
         color: #212121;
-        letter-spacing: 1px;
+        letter-spacing: 0;
         font-style: normal;
         font-family: 'Comfortaa', sans-serif;
         color: white;
-        text-shadow: 0 1px 0 #ccc,
-                     0 2px 0 #c9c9c9,
-                     0 3px 0 #bbb,
-                     0 7px 0 #b9b9b9,
-                     0 5px 0 #aaa,
-                     0 6px 1px rgba(0,0,0,.1),
-                     0 0 5px rgba(0,0,0,.1),
-                     0 1px 3px rgba(0,0,0,.3),
-                     0 3px 5px rgba(0,0,0,.2),
-                     0 5px 10px rgba(0,0,0,.25),
-                     0 10px 10px rgba(0,0,0,.2),
-                     0 20px 20px rgba(0,0,0,.15);
-        font-size: 76px;
-        line-height: 54px;
+        font-weight: bold;
+        text-shadow: 1px 1px 4px #646464;
+        font-size: 2em;
+        line-height: 1.2em;
         text-indent: 0;
-      }
-      #game table td[data-digit^="2"] > div {
-        font-size: 70px;
-        line-height: 50px;
-        text-indent: -11px;
-        letter-spacing: -2px;
-      }
-        #game table td[data-digit^="2"][data-combo^="1"] > div {
-          text-indent: -2px;
-          letter-spacing: 1px;
-        }
-      #game table td[data-digit^="3"] > div {
-        font-size: 60px;
-        line-height: 50px;
-        text-indent: -6px;
-        letter-spacing: -3px;
-      }
-        #game table td[data-combo] > div:before,
-        #game table td[data-combo] > div:after,
-        #game-over:before {
-          content: " ";
-          width: 100%;
-          height: 100%;
-          opacity: 0.1;
-          background: repeating-linear-gradient( 0deg, #000000, #000000 0px, transparent, transparent 4px );
-          border-radius: 0 100% 0 0;
-          position: absolute;
-          top: auto;
-          bottom: 0;
-          left: 0;
-        }
-        #game table td[data-combo] > div:after {
-          background: repeating-linear-gradient( 90deg, #000000, #000000 0px, transparent, transparent 4px );
-          border-right: 1px solid black;
-        }
-        #game table td[data-combo="1"] > div:before,
-        #game table td[data-combo="1"] > div:after {
-          width: 20%;
-          height: 20%;
-        }
-        #game table td[data-combo="2"] > div:before,
-        #game table td[data-combo="2"] > div:after {
-          width: 60%;
-          height: 60%;
-        }
-        #game table td[data-combo] {
-          border: 2px solid rgba(0, 0, 0, .1);
-        }
-        #game table td[data-combo][data-status="1"] > div:before,
-        #game table td[data-combo][data-status="1"] > div:after {
-          width: 100%;
-          height: 100%;
-          border-right: 0;
-          border-radius: 0;
-        }
-
-#game-over {
-  width: 100%;
-  height: 100px;
-  margin-top: -50px;
-  font-style: normal;
-  font-size: 84px;
-  line-height: 100px;
-  text-align: center;
-  overflow: visible;
-  position: absolute;
-  top: 50%;
-  bottom: auto;
-  left: 0;
-}
-  #game-over:before {
-    border-radius: 0;
-  }
-
-@media only screen and (max-width: 800px) {
-  h1 {
-    margin: 0;
-    font-size: 2.6em;
-  }
-  .wraps {
-    max-width: 520px;
-    margin: 0 auto;
-  }
-  div[class*="wrap-"] {
-    padding: 6px 12px;
-    font-size: 2em;
-  }
-  div.wrap-navs {
-    margin-bottom: 0;
-  }
-  div.wrap-game {
-    padding: 0 8px;
-  }
-  div.wrap-score {
-    margin-bottom: -44px;
-  }
-  div.wrap-step {
-    margin-top: -44px;
-  }
-  #game {
-    padding: 8px 0;
-  }
-  .wrap-game:before,
-  .wrap-game:after {
-    width: 6px;
-  }
-  #game:before, #game:after {
-    height: 6px;
-  }
-  #page,
-  #page[data-size] {
-    width: 100%;
-  }
-  #game table {
-    width: 100%;
-    background-image: none;
-    border-spacing: 4px !important;
-  }
-    #game table td {
-      width: 10%;
-      height: auto;
-      border: 1px solid #d9d7ca;
-      position: relative;
-    }
-      #game table td > div {
         position: absolute;
         top: 0;
         left: 0;
         bottom: 0;
         right: 0;
       }
-      #game table td:before {
-        content: "";
-        display: block;
-        padding-top: 100%;
+      #game table td[data-digit^="2"] > div {
+        text-indent: -2px;
+        letter-spacing: -4px;
       }
-  .wrap-score #score,
-  .wrap-step #step {
-    font-weight: bold;
+      #game table td[data-digit^="3"] > div {
+        text-indent: -6px;
+        letter-spacing: -4px;
+        font-size: 1.6em;
+        line-height: 1.4em;
+      }
+      #game table td[data-combo] > div:before,
+      #game table td[data-combo] > div:after,
+      #message:before {
+        content: " ";
+        width: 100%;
+        height: 100%;
+        opacity: 0.1;
+        background: repeating-linear-gradient( 0deg, #000000, #000000 0px, transparent, transparent 4px );
+        border-radius: 0 100% 0 0;
+        position: absolute;
+        top: auto;
+        bottom: 0;
+        left: 0;
+      }
+      #game table td[data-combo] > div:after,
+      #message:after {
+        background: repeating-linear-gradient( 90deg, #000000, #000000 0px, transparent, transparent 4px );
+        border-right: 1px solid black;
+      }
+      #game table td[data-combo="1"] > div:before,
+      #game table td[data-combo="1"] > div:after {
+        width: 20%;
+        height: 20%;
+      }
+      #game table td[data-combo="2"] > div:before,
+      #game table td[data-combo="2"] > div:after {
+        width: 60%;
+        height: 60%;
+      }
+      #game table td[data-combo] {
+        border-color: rgba(0, 0, 0, .1);
+      }
+      #game table td[data-combo][data-status="1"] > div:before,
+      #game table td[data-combo][data-status="1"] > div:after {
+        width: 100%;
+        height: 100%;
+        border-right: 0;
+        border-radius: 0;
+      }
+
+#message {
+  width: 100%;
+  height: 100%;
+  padding: 15%;
+  font-style: normal;
+  font-size: 48px;
+  line-height: 36px;
+  text-align: center;
+  overflow: visible;
+  position: absolute;
+  top: 0;
+  bottom: auto;
+  left: 0;
+  box-sizing: border-box;
+  display: none;
+}
+  #message:before {
+    border-radius: 0;
+  }
+  #message:before {
+    height: 40%;
+    top: 30%;
+    left: 0;
+  }
+  #message > div {
+    padding: 0 10%;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translate(0, -50%);
+  }
+  #message p {
+    margin: 0;
+    text-align: left;
+  }
+  #message p + h4 {
+    margin-top: 20px;
+  }
+  #message h4 {
+    margin: 0;
+  }
+
+.copyright {
+  font-size: 2em;
+  line-height: 1.5em;
+  text-align: center;
+  position: absolute;
+  top: auto;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+@media only screen and (max-width: 640px) {
+  h1 {
+    font-size: 2.4em;
+    line-height: 2em;
+  }
+  .wraps {
+    max-width: 480px;
+  }
+  div.wrap-navs {
+    margin-bottom: 0;
+  }
+  #game table td > div {
+    font-size: 1.8em;
+    line-height: 1em;
+  }
+  .copyright {
+    padding: 0;
+  }
+
+}
+
+@media only screen and (max-width: 480px) {
+  h1 {
+    line-height: 1.4em;
+  }
+
+  #page, #page[data-size] {
+    width: auto;
   }
 }
 

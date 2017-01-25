@@ -4,7 +4,9 @@ Simple and fun game on JavaScript. [Play it here!](https://shtange.github.io/bus
 ![alt text](https://raw.githubusercontent.com/shtange/bushed-bricks/master/screenshot.jpg "Bushed Bricks screenshot")
 
 ## Rules
-Combine the blocks of the same color. Once the block has reached a certain level, it can be placed on the appropriate color line. You'll get game points for that.
+Combine tiles of same color. Once tile has reached __x4__ or above, it can be placed on appropriate color line. You'll get game points for that.
+
+You need to hold __400__ steps or earn __5,000__ points to win.
 
 ## Controls
 Use navigation keys (← ↑↓→) for desktop or swipe for tablet/mobile.

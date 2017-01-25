@@ -73,4 +73,13 @@ ControlsManager.prototype.listen = function () {
         self.API("game", "reload");
         event.stopPropagation();
     }, false);
+
+    // Listen modal buttons
+    document.querySelectorAll('.modal-action').forEach(function(elem, i) {
+        elem.addEventListener('click', function(event) {
+            event.preventDefault();
+            self.API("modal", "display", this.getAttribute("data-action"));
+            event.stopPropagation();
+        }, false);
+    });
 }

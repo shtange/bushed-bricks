@@ -16,10 +16,14 @@ var Gear = function (params) {
     this.config = {
         size     : params.size && [5, 6, 7, 8, 9, 10].indexOf(params.size) > -1 ? params.size : 7,
         count    : params.count && [2, 3, 4].indexOf(params.count) > -1 ? params.count : params.size - 4,
-        combo : params.combo && [2, 3, 4, 5].indexOf(params.combo) > -1 ? params.combo : params.size - 3,
+        combo    : params.combo && [2, 3, 4, 5].indexOf(params.combo) > -1 ? params.combo : params.size - 3,
         mode     : params.mode && ['easy', 'hard'].indexOf(params.mode) > -1 ? params.mode : 'easy',
         lifeTime : 4,
         points   : 10,
+        victory  : {
+            steps: 400,
+            points: 5000,
+        },
     };
 
     this.score = 0;
@@ -68,13 +72,24 @@ Gear.prototype.api = {
                 this.api.game.penalty.call(this);
             }
 
-            if (!this.grid.cellsAvailable()) {
-                this.api.game.over.call(this);
-            } else {
-                this.api.game.update.call(this, key, route);
+            switch (true) {
+                case this.step >= this.config.victory.steps || this.score >= this.config.victory.points :
+                    this.api.game.win.call(this);
+                    break;
+                case !this.grid.cellsAvailable() :
+                    this.api.game.over.call(this);
+                    break;
+                default :
+                    this.api.game.update.call(this, key, route);
+                    break;
             }
 
             this.controls.position = [];
+        }
+    },
+    modal: {
+        display: function(action) {
+            this.render.displayModal(action);
         }
     },
     game: {
@@ -144,6 +159,9 @@ Gear.prototype.api = {
             this.render.clear();
 
             this.api.game.run.call(this);
+        },
+        win: function() {
+            this.render.gameWin();
         },
         over: function() {
             this.over = true;

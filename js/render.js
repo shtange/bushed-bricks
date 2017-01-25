@@ -16,11 +16,12 @@ var Render = function (config) {
     this.config = config;
 
     this.DOM = {
-        page: document.querySelector('#page'),
-        game: document.querySelector('#game'),
-        score: document.querySelector('#score'),
-        step: document.querySelector('#step'),
-        message: document.querySelector('#message'),
+        page    : document.querySelector('#page'),
+        game    : document.querySelector('#game'),
+        score   : document.querySelector('#score'),
+        step    : document.querySelector('#step'),
+        message : document.querySelector('#message'),
+        modal   : document.querySelector('#modal'),
     };
 
     this.init();
@@ -30,6 +31,15 @@ Render.prototype.init = function () {
     this.DOM.page.setAttribute('data-size', this.config.size);
     this.DOM.table = document.createElement("table");
     this.DOM.game.appendChild(this.DOM.table);
+
+    this.setMessage([
+        { tag: "h4", caption: "Rules" },
+        { tag: "p",  caption: "Combine tiles of same color. Once tile has reached <b>x" + this.config.combo + "</b> or above, it can be placed on appropriate color line. You'll get game points for that" },
+        { tag: "p",  caption: "You need to hold <b>" + this.config.victory.steps + "</b> steps or earn <b>" + this.config.victory.points.toLocaleString('en-US') + "</b> points to win" },
+        { tag: "h4", caption: "Controls" },
+        { tag: "p",  caption: "Navigation keys for desktop" },
+        { tag: "p",  caption: "Swipe for tablet/mobile" },
+    ], this.DOM.modal);
 }
 
 Render.prototype.redraw = function (grid, score, gain, step) {
@@ -56,35 +66,27 @@ Render.prototype.redraw = function (grid, score, gain, step) {
 
 Render.prototype.clear = function () {
     this.DOM.message.innerHTML = "";
+    
     this.hideMessage();
 }
 
 Render.prototype.gameOver = function() {
     this.setMessage([
         { tag: "h3", caption: "Game Over" }
-    ]);
+    ], this.DOM.message);
+
     this.showMessage();
-};
+}
 
 Render.prototype.gameWin = function() {
     this.setMessage([
         { tag: "h3", caption: "You\'ve Won!" }
-    ]);
-    this.showMessage();
-};
+    ], this.DOM.message);
 
-Render.prototype.gameIntro = function() {
-    this.setMessage([
-        { tag: "h4", caption: "Rules" },
-        { tag: "p",  caption: "Combined blocks" },
-        { tag: "h4", caption: "Controls" },
-        { tag: "p",  caption: "navigation keys for desktop" },
-        { tag: "p",  caption: "swipe for tablet/mobile" },
-    ]);
     this.showMessage();
 }
 
-Render.prototype.setMessage = function(data) {
+Render.prototype.setMessage = function(data, target) {
     var message = document.createElement('div');
 
     data.forEach(function(val, i) {
@@ -93,7 +95,7 @@ Render.prototype.setMessage = function(data) {
         message.appendChild(elem);
     });
 
-    this.DOM.message.appendChild(message);
+    target.appendChild(message);
 };
 
 Render.prototype.showMessage = function() {
@@ -104,4 +106,8 @@ Render.prototype.showMessage = function() {
 Render.prototype.hideMessage = function() {
     this.DOM.table.style.opacity = "1";
     this.DOM.message.style.display = "none";
+}
+
+Render.prototype.displayModal = function(action) {
+    this.DOM.modal.className = action || "hide";
 }

@@ -1,7 +1,7 @@
 # Bushed Bricks
 Simple and fun game on JavaScript. [Play it here!](https://shtange.github.io/bushed-bricks/)
 
-![alt text](https://raw.githubusercontent.com/shtange/bushed-bricks/master/screenshot.jpg "Bushed Bricks screenshot")
+![alt text](https://raw.githubusercontent.com/shtange/bushed-bricks/master/screenshot_v2.jpg "Bushed Bricks screenshot")
 
 ## Rules
 Combine tiles of same color. Once tile has reached __x4__ or above, it can be placed on appropriate color line. You'll get game points for that.
